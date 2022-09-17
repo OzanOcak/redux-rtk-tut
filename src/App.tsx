@@ -4,12 +4,14 @@ import { useAppSelector } from './app/hooks'
 import { useDispatch } from 'react-redux'
 import { amountAdded, incremented } from './features/counter/counter-slice'
 import { useFetchBreedsQuery } from './features/dogs/dogs-api-slice'
+import { useState } from 'react'
 
 function App() {
   const count = useAppSelector(state => state.counter.value)
   const dispatch = useDispatch();
 
-  const { data = [], isFetching } = useFetchBreedsQuery(); // data is breed[] or undefine
+  const [numDogs, setNumDogs] = useState(10);
+  const { data = [], isFetching } = useFetchBreedsQuery(numDogs); // data is breed[] or undefine
 
 
   function handleClick(){
@@ -35,6 +37,15 @@ function App() {
           count is {count}
         </button>
         <button onClick={increasedByFour}> add 4 </button>
+        <div>
+          <p>Dogs to fetch:</p>
+          <select value={numDogs} onChange={(e) => setNumDogs(Number(e.target.value))}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
         <div>
           <p>Number of dogs fetched: {data.length}</p>
           <table>
