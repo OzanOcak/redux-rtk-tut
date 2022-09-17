@@ -30,4 +30,8 @@ then we can fetch and update Dom by calling hooks in App.tsx
 import { useAppSelector } from './app/hooks'
   ...
   const count = useAppSelector(state => state.counter.value)
+  function handleClick(){dispatch(incremented())}
+  ...
+  <button onClick={handleClick}>
+          count is {count}
 ```
