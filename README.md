@@ -60,3 +60,49 @@ function increasedByFour() {
 ...
 <button onClick={increasedByFour}> add 4 </button>
 ```
+
+---
+
+## RTK
+
+we need to create a new features, in this case it is dogs-api-slice.ts under fetures/dogs directories
+we will use fetchBaseQueryto fetch and endpoints to path right end point, within createApi build-in method,
+
+```javascript
+export const apiSlice = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://api.thedogapi.com/v1',
+    prepareHeaders(headers) {
+      headers.set('x-api-key', DOGS_API_KEY);
+
+      return headers;
+    },
+  }),
+  endpoints(builder) {
+    return {
+      fetchBreeds: builder.query<Breed[], number | void>({
+        query(limit = 10) {
+          return `/breeds?limit=${limit}`;
+        },
+      }),
+    };
+  },
+});
+
+export const { useFetchBreedsQuery } = apiSlice;
+```
+
+useFetchBreedsQuery is autamatically created, based on the endpoints method we created earlier. Now we can use this hook in App.tsx
+
+```javascript
+const { data = [], isFetching } = useFetchBreedsQuery();
+    ...
+{data.map((breed) => (
+                <tr key={breed.id}>
+                  <td>{breed.name}</td>
+```
+
+data comes from useFetchBreedsQuery is breed[] or undefine so we assign empty array. Finally we can access fetched data.
+
+---

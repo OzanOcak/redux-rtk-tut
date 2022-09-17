@@ -3,10 +3,14 @@ import './App.css'
 import { useAppSelector } from './app/hooks'
 import { useDispatch } from 'react-redux'
 import { amountAdded, incremented } from './features/counter/counter-slice'
+import { useFetchBreedsQuery } from './features/dogs/dogs-api-slice'
 
 function App() {
   const count = useAppSelector(state => state.counter.value)
   const dispatch = useDispatch();
+
+  const { data = [], isFetching } = useFetchBreedsQuery(); // data is breed[] or undefine
+
 
   function handleClick(){
     dispatch(incremented())
@@ -31,9 +35,27 @@ function App() {
           count is {count}
         </button>
         <button onClick={increasedByFour}> add 4 </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <div>
+          <p>Number of dogs fetched: {data.length}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Picture</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((breed) => (
+                <tr key={breed.id}>
+                  <td>{breed.name}</td>
+                  <td>
+                    <img src={breed.image.url} alt={breed.name} height={250} width={300} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
