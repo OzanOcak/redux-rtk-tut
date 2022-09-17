@@ -2,7 +2,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import { useAppSelector } from './app/hooks'
 import { useDispatch } from 'react-redux'
-import { incremented } from './features/counter/counter-slice'
+import { amountAdded, incremented } from './features/counter/counter-slice'
 
 function App() {
   const count = useAppSelector(state => state.counter.value)
@@ -10,6 +10,9 @@ function App() {
 
   function handleClick(){
     dispatch(incremented())
+  }
+  function increasedByFour(){
+    dispatch(amountAdded(4))
   }
 
   return (
@@ -27,6 +30,7 @@ function App() {
         <button onClick={handleClick}>
           count is {count}
         </button>
+        <button onClick={increasedByFour}> add 4 </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

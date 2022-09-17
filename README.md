@@ -35,3 +35,28 @@ import { useAppSelector } from './app/hooks'
   <button onClick={handleClick}>
           count is {count}
 ```
+
+---
+
+## adding new feature into app and redux
+
+First we need add new method in reducers that consists of state and action(function)in counter-slice.js and we need export it.
+
+```javascript
+amountAdded(state, action: PayloadAction<number>) {
+      state.value += action.payload;
+    },
+export const { , amountAdded } = counterSlice.actions;
+```
+
+Then import amoutAdded reducer,then create a function where you can dispatch the reducer. Finally we can call the function in jsx/tsx.
+
+```javascript
+import { amountAdded } from "./features/counter/counter-slice";
+...
+function increasedByFour() {
+  dispatch(amountAdded(4));
+}
+...
+<button onClick={increasedByFour}> add 4 </button>
+```
