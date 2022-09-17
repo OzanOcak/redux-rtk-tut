@@ -106,3 +106,5 @@ const { data = [], isFetching } = useFetchBreedsQuery();
 data comes from useFetchBreedsQuery is breed[] or undefine so we assign empty array. Finally we can access fetched data.
 
 ---
+
+if you go network tab in devstool, if we fetch 10 dags then 5, than 10 again, we will see is is not fetching network tab because middleware keep in cache.
