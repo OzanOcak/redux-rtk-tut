@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { useAppSelector } from './app/hooks'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useAppSelector(state => state.counter.value)
 
   return (
     <div className="App">
@@ -17,7 +17,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button>
           count is {count}
         </button>
         <p>
